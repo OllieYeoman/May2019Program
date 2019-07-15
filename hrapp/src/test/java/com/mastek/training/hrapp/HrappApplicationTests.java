@@ -1,5 +1,11 @@
 package com.mastek.training.hrapp;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +34,35 @@ public class HrappApplicationTests {
 	
 	@Test
 	public void addEmployeeUsingService() {
-	/*	Employee emp = new Employee();
-		emp.setEmpno(112);
-		emp.setName("Example");
-		emp.setSalary(333);
-		
-		above is not needed
-	*/
-		empService.registerEmployee(emp);
+	//	Employee emp = new Employee();
+		emp.setEmpno(10);
+		emp.setName("Example 10");
+		emp.setSalary(4573);
+		emp = empService.registerOrUpdateEmployee(emp);
+		assertNotNull(emp);
+
+	}
+	
+	@Test
+	public void findByEmpnoUsingService() {
+		int empno=1;
+		assertNotNull(empService.findByEmpno(empno));
+	}
+	
+	@Test
+	public void deleteByEmpnoUsingService() {
+		int empno=2;
+		empService.deleteByEmpno(empno);
+		assertNull(empService.findByEmpno(empno));
+	}
+	
+	@Test
+	public void checkFetchBySalary() {
+		List<Employee> emps=empService.fetchEmployeesBySalaryRange(0, 9000);
+		for(Employee employee:emps) {
+			System.out.println(employee);
+		}
+	assertEquals(emps.size(),7);
 	
 	}
 	

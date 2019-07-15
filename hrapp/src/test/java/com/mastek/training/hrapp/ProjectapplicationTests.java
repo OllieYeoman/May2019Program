@@ -24,6 +24,7 @@ public class ProjectapplicationTests {
 		System.out.println("Project test case scenarios");
 		emp.setEmpno(555);
 		emp.setSalary(4555500);
-		empService.registerEmployee(emp);
+		empService.registerOrUpdateEmployee(emp);
 	}
 }
+
