@@ -70,5 +70,37 @@ public class HrappApplicationTests {
 	public void contextLoads() {
 		System.out.println("System Test Executed");
 	}
+	
+	@Test
+    public void manageAssociations() {
+        Department d1 = new Department();
+        d1.setDepName("Admin");
+        d1.setLocation("Uk");
+       
+        Employee emp1 = new Employee();
+        emp1.setName("Admin emp 1");
+        emp1.setSalary(12123);
+       
+        Employee emp2 = new Employee();
+        emp2.setName("Admin emp 2");
+        emp2.setSalary(2344);
+       
+        Project p1 = new Project();
+        p1.setProName("Uk project");
+        p1.setCustomer("Uk customer");
+       
+        Project p2 = new Project();
+        p2.setProName("Uk project 2");
+        p2.setCustomer("cusotmer 2");
+    }
+	
+	//one to many: one department
+	d1.getMembers().add(emp1);
+	d2.getMembers().add(emp2);
+
+	emp1.getAssignments().add(p2);
+	emp1.getAssignments().add(p1);
+	emp2.getAssignments().add(p1);
+
 
 }

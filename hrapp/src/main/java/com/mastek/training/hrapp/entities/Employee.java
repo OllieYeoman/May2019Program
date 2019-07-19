@@ -1,13 +1,20 @@
 package com.mastek.training.hrapp.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -39,6 +46,31 @@ implements Serializable{  //manage serialisation of object
 	@Value("100.0")
 	private double salary;
 	
+	private Set<Project> assignments= new HashSet<>();
+	//@manyToMany: config the association for both the entities
+	//@joinTable: Provides all the config for the third table
+	//name: name of the Join table
+	//joinColumns: Foreign Key column name for current class
+	//inverseJoinColumn: foreign key column or other class
+	
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="JPA_ASSIGNMENTS", 
+	joinColumns=@JoinColumn(name="FK_EMPNO"), 
+	inverseJoinColumns=@JoinColumn(name="FK_PROJECTID"))
+		
+	//@many to one: each employee belongs to one department 
+	private Department currentDepartment;
+	
+	public Set<Project> getAssignments() {
+		return assignments;
+	}
+	public void setAssignments(Set<Project> assignments) {
+		this.assignments = assignments;
+	}
+	@ManyToOne
+	@JoinColumn(name="FK_DepartmentId")
+	public department getCurrentDepartment
 	
 	@Id // sets property of PK
 	@Column(name="employee_number") // declare name of column
